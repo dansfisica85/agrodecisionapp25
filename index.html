@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>AgroDecision - Análise Climática</title>
+
+  <!-- Acessibilidade -->
+  <a href="#main-content" class="skip-link">Pular para o conteúdo principal</a>
+
+  <!-- Manifest e ícones -->
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/png" href="images/logo_AD.png">
+
+  <!-- PWA meta tags -->
+  <meta name="theme-color" content="#4CAF50">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black">
+  <meta name="apple-mobile-web-app-title" content="AgroDecision">
+  <link rel="apple-touch-icon" href="icons/icon-192x192.png">
+  <meta name="description" content="AgroDecision - Aplicativo para análise climática e tomada de decisões agrícolas">
+
+  <!-- CSS -->
+  <link rel="stylesheet" href="css/styles.css">
+  <link rel="stylesheet" href="css/improvements.css">
+  <link rel="stylesheet" href="css/layout-fixes-final.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/4.1.1/animate.min.css">
+  
+  <!-- Bibliotecas externas -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/sweetalert2@11"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js"></script>
+
+  <!-- Firebase SDKs -->
+  <script type="module">
+    import { initializeApp } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-app.js';
+    import { getAuth, GoogleAuthProvider, signInWithPopup } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-auth.js';
+    import { getFirestore } from 'https://www.gstatic.com/firebasejs/9.22.0/firebase-firestore.js';
+
+    // Firebase Configuration
+    const firebaseConfig = {
+      apiKey: "AIzaSyBxB1nNM-HHN_C5Q1P9Dyz7SnBLX8FTfM0",
+      authDomain: "agrodecision-demo.firebaseapp.com", 
+      projectId: "agrodecision-demo",
+      storageBucket: "agrodecision-demo.appspot.com",
+      messagingSenderId: "123456789012",
+      appId: "1:123456789012:web:abc123def456"
+    };
+
+    // Initialize Firebase
+    const app = initializeApp(firebaseConfig);
+    const auth = getAuth(app);
+    const db = getFirestore(app);
+
+    // Make auth and db globally available
+    window.auth = auth;
+    window.db = db;
+    window.GoogleAuthProvider = GoogleAuthProvider;
+  </script>
+</head>
+<body>
+  <header class="header">
+    <button class="menu-btn" onclick="toggleMenu()" aria-label="Abrir menu">☰</button>
+    <img src="images/logo_AD.png" alt="AgroDecision Logo">
+    <div id="userInfo" class="user-dropdown" onclick="toggleUserDropdown()"></div>
+  </header>
+
+  <nav class="nav-drawer" id="navDrawer" aria-label="Menu de navegação principal">
+    <div class="nav-item" onclick="showScreen('home')" tabindex="0" role="button" aria-label="Ir para página inicial">
+      <i>🏠</i> Início
+    </div>
+    <div class="nav-item" onclick="showScreen('monthly')" tabindex="0" role="button" aria-label="Ir para consulta mensal">
+      <i>📊</i> Consulta Mensal
+    </div>
+    <div class="nav-item" onclick="showScreen('regional')" tabindex="0" role="button" aria-label="Ir para consulta regional">
+      <i>🌍</i> Consulta Regional
+    </div>
+    <div class="nav-item" onclick="showScreen('indicators')" tabindex="0" role="button" aria-label="Ir para indicadores">
+      <i>📈</i> Indicadores
+    </div>
+    <div class="nav-item" onclick="showScreen('simulation')" tabindex="0" role="button" aria-label="Ir para simulação de colheita">
+      <i>🌾</i> Simulação de Colheita
+    </div>
+    <div class="nav-item" onclick="showScreen('history')" tabindex="0" role="button" aria-label="Ir para histórico">
+      <i>📑</i> Histórico
+    </div>
+    <div class="nav-item" id="loginButton" onclick="window.authManager.handleAuth()" tabindex="0" role="button" aria-label="Fazer login">
+      <i>👤</i> Login
+    </div>
+  </nav>
+
+  <main id="main-content">
+    <div id="map" aria-label="Mapa interativo"></div>
+    <div id="content" class="content" style="display: none;"></div>
+  </main>
+
+  <!-- Scripts da aplicação -->
+  <script src="js/layout-fixes-final.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/map.js"></script>
+  <script src="js/simulation.js"></script>
+  <script src="js/history.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/auth.js"></script>
+  <script src="js/regional.js"></script>
+  <script src="js/install.js"></script>
+  <script src="js/offline.js"></script>
+  <script src="js/home.js"></script>
+  <script src="js/app.js"></script>
+
+  <!-- Service Worker Registration -->
+  <script>
+    if ('serviceWorker' in navigator) {
+      window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js')
+          .then(registration => {
+            console.log('ServiceWorker registration successful with scope: ', registration.scope);
+          })
+          .catch(err => {
+            console.log('ServiceWorker registration failed: ', err);
+          });
+      });
+    }
+  </script>
+</body>
+</html>

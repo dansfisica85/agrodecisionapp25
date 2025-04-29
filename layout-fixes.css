@@ -1,0 +1,200 @@
+/* 
+ * AgroDecision - Correções de Layout
+ * Este arquivo contém correções para os problemas de layout identificados no site
+ */
+
+/* Correção para o menu lateral */
+.nav-drawer {
+  position: fixed;
+  left: -280px;
+  top: 0;
+  width: 280px;
+  height: 100vh;
+  background: white;
+  transition: 0.3s;
+  z-index: 1001;
+  padding-top: 60px;
+  box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+  overflow-y: auto;
+}
+
+.nav-drawer.open {
+  left: 0;
+}
+
+body.nav-open .content,
+body.nav-open main {
+  margin-left: 280px;
+  width: calc(100% - 280px);
+  transition: margin-left 0.3s, width 0.3s;
+}
+
+/* Correção para o conteúdo principal */
+main {
+  margin-left: 0;
+  width: 100%;
+  transition: margin-left 0.3s, width 0.3s;
+  position: relative;
+  overflow: hidden;
+}
+
+.content {
+  padding: 1rem;
+  margin-top: 60px;
+  width: 100%;
+  transition: margin-left 0.3s, width 0.3s;
+  box-sizing: border-box;
+}
+
+/* Correção para cards e seções */
+[class*="card"], 
+[class*="section"],
+.feature-card {
+  position: relative;
+  overflow: hidden;
+  margin: 15px 0;
+  padding: 15px;
+  box-sizing: border-box;
+  width: 100%;
+  clear: both;
+  float: none;
+  border-radius: 8px;
+  box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+/* Correção para botões e elementos de navegação */
+button:not(.leaflet-control), 
+.button:not(.leaflet-control), 
+[class*="btn"]:not(.leaflet-control) {
+  position: relative;
+  display: inline-block;
+  margin: 5px;
+  z-index: 1;
+}
+
+/* Correção para a seção "Como Começar" */
+.simulation-steps {
+  clear: both;
+  padding: 20px;
+  margin: 20px auto;
+  max-width: 100%;
+  box-sizing: border-box;
+  position: relative;
+}
+
+.step-item {
+  position: relative;
+  z-index: 1;
+  margin: 0;
+  clear: both;
+}
+
+.step-item .step-label {
+  position: absolute;
+  white-space: normal;
+  width: 120px;
+  text-align: center;
+}
+
+/* Correção para o rodapé */
+footer, [class*="footer"] {
+  clear: both;
+  position: relative;
+  margin-top: 30px;
+  padding: 15px;
+  text-align: center;
+  width: 100%;
+}
+
+/* Correção para o botão "Começar Agora" */
+.start-button, [class*="start"] {
+  display: block;
+  margin: 20px auto;
+  padding: 10px 20px;
+  background-color: var(--primary-color);
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 16px;
+  font-weight: bold;
+  text-align: center;
+  position: relative;
+  z-index: 1;
+  clear: both;
+}
+
+/* Correções para media queries */
+@media (max-width: 768px) {
+  body.nav-open .content,
+  body.nav-open main {
+    margin-left: 0;
+    width: 100%;
+  }
+  
+  .nav-drawer.open {
+    width: 100%;
+    max-width: 280px;
+  }
+  
+  .feature-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  [class*="card"], 
+  [class*="section"],
+  .feature-card {
+    width: 100%;
+    margin: 10px 0;
+  }
+  
+  .simulation-steps {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .step-item {
+    margin-bottom: 20px;
+  }
+}
+
+/* Correção para z-index em elementos do mapa */
+.leaflet-pane {
+  z-index: 400 !important;
+}
+
+.leaflet-top, 
+.leaflet-bottom {
+  z-index: 500 !important;
+}
+
+.leaflet-popup-pane {
+  z-index: 600 !important;
+}
+
+/* Correção para textos sobrepostos */
+h1, h2, h3, h4, h5, h6, p, span, div {
+  max-width: 100%;
+  overflow-wrap: break-word;
+}
+
+/* Correção para o header */
+.header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  z-index: 1000;
+}
+
+/* Correção para o menu de usuário */
+#userInfo {
+  position: relative;
+  z-index: 1002;
+}
+
+/* Correção para elementos com posição absoluta */
+[style*="position: absolute"] {
+  max-width: 100%;
+  max-height: 100%;
+}
